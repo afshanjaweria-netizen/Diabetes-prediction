@@ -6,7 +6,7 @@ import pickle
 # Load Model & Scaler
 # ===============================
 with open("diabetes_model.pkl", "rb") as f:
-    model = pickle.load(f)
+    rf_model = pickle.load(f)
 
 with open("scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
@@ -43,8 +43,8 @@ if st.button("Predict Diabetes"):
     input_scaled = scaler.transform(input_data)
 
     # Predict
-    prediction = model.predict(input_scaled)[0]
-    probability = model.predict_proba(input_scaled)[0][1]
+    prediction = rf_model.predict(input_scaled)[0]
+    probability = rf_model.predict_proba(input_scaled)[0][1]
 
     # Display result
     st.write(f"### Prediction Probability: {probability:.2f}")
@@ -53,3 +53,4 @@ if st.button("Predict Diabetes"):
         st.error("⚠️ The patient is likely to have Diabetes")
     else:
         st.success("✅ The patient is unlikely to have Diabetes")
+
